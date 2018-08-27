@@ -12,7 +12,8 @@ class InitView(View):
     def post(self, request):
         return HttpResponse(json.dumps({
             "states": list(DISTRICTS.keys()),
-            "districts": DISTRICTS
+            "districts": DISTRICTS,
+            "items": list(ItemModel.objects.values_list('name', flat=True))
         }))
 
 
