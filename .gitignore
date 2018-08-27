@@ -1,0 +1,6 @@
+*.pyc
+
+Pipfile.lock
+yarn.lock
+
+node_modules/
