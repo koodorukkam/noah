@@ -8,15 +8,6 @@ class DonateView extends React.Component {
                 <p className="lead">Every small donation can make a BIG difference</p>
                 <form>
                     <div className="form-group">
-                        <label>Posting for</label>
-                        <select className="form-control">
-                            <option>Self</option>
-                            <option>Family</option>
-                            <option>Friend</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
                         <label>Your Full Name</label>
                         <input className="form-control" type="text" />
                     </div>

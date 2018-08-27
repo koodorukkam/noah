@@ -1,7 +1,10 @@
 .DS_Store
 *.pyc
+*.sqlite3
 
 Pipfile.lock
 yarn.lock
+
+settings.json
 
 node_modules/
