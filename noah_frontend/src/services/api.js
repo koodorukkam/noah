@@ -9,7 +9,7 @@ export class APIService {
     }
 
     static get baseUrl() {
-        return `${config.BASE_URL}/api/v1/`
+        return `/api/v1/`
     }
 
     get server() {
