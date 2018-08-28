@@ -52,6 +52,12 @@ class DonateView extends React.Component {
 
     registerDonation = (e) => {
         e.preventDefault()
+
+        if (!e.target.agreeToTerms.checked) {
+            alert("Please agree to donate only 'very good working condition' items by checking the box")
+            return
+        }
+
         const keys = ["full_name", "contact_number", "state", "district", "pincode"]
         let payload = {
             items: this.items.map(i => {return {name: i, count: e.target[i].value}})
@@ -59,7 +65,6 @@ class DonateView extends React.Component {
         for (const key of keys) {
             payload[key] = e.target[key].value
         }
-        console.log(payload)
         this.api.registerDonation(payload, e.target)
     }
 
@@ -118,7 +123,12 @@ class DonateView extends React.Component {
                         <input name="pincode" className="form-control" type="number" minLength="6" maxLength="6" required />
                     </div>
                 </div>
-                <br/><br/>
+                <br/>
+                <div className="form-group">
+                    <input name="agreeToTerms" className="form-group" type="checkbox" />&nbsp;&nbsp;&nbsp;I agree that all items I donate will be in VERY GOOD WORKING condition
+                    <br/>
+                    <input className="form-group" type="checkbox" />&nbsp;&nbsp;&nbsp;I agree to share my contact details with the receiver of my donated item
+                </div>
                 <div className="row text-center">
                     <button style={{padding: "18px 20px"}} type="submit" className="btn btn-primary btn-lg btn-block">Donate</button>
                 </div>
@@ -131,7 +141,6 @@ class DonateView extends React.Component {
                 <tr><td>We are continuously identifying the people in need of the items and will be delivering to them directly.</td></tr>
                 <tr><td>We will keep the movement of goods as transparent as possible.</td></tr>
                 <tr><td>You may choose to donate used or unused items. But please donate only items in VERY GOOD condition.</td></tr>
-                <tr><td>If you wish to donate an item that is not in the list, please mention in the ‘Others’ box.</td></tr>
                 <tr><td>When you submit the form, your contact details may be shared with a volunteer group or / and the receiver of your donations.</td></tr>
             </tbody>
         </table>
