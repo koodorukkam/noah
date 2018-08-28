@@ -125,7 +125,7 @@ class DonateView extends React.Component {
             </form>
         </div>
         <br/><br/>
-        <table className="text-center table">
+        <table className="text-justify table">
             <tbody>
                 <tr><td>Our team of volunteers will get in touch with you over the next 2 weeks and arrange for pickup.</td></tr>
                 <tr><td>We are continuously identifying the people in need of the items and will be delivering to them directly.</td></tr>
