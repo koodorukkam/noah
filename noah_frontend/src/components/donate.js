@@ -46,7 +46,8 @@ class DonateView extends React.Component {
     addItem = (e) => {
         e.preventDefault()
         const name = prompt("Enter name of the Item")
-        this.props.dispatch(addCustomItem(name))
+        if (name && name.length > 0)
+            this.props.dispatch(addCustomItem(name))
     }
 
     registerDonation = (e) => {
