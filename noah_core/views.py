@@ -13,7 +13,7 @@ class InitView(View):
         return HttpResponse(json.dumps({
             "states": list(DISTRICTS.keys()),
             "districts": DISTRICTS,
-            "items": list(ItemModel.objects.values_list('name', flat=True))
+            "items": list(ItemModel.objects.filter(crowd_sourced=False).values_list('name', flat=True))
         }))
 
 
