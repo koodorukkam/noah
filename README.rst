@@ -7,6 +7,8 @@ Noah's Arc - Rebuilding after the Flood
 How to Run the Project
 ======================
 #. Make sure you have ``pipenv`` installed
+#. Create a MySQL database for this app
+#. Make sure you set all environment variables mentioned in ``env.dev.sh``
 #. Install all dependencies ::
 
     $ pipenv install
