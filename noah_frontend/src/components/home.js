@@ -9,7 +9,6 @@ class HomeView extends React.Component {
     render() {
         return (
             <div>
-                {/* <NavigationView /> */}
                 <HeaderView />
                 <DonateView />
                 <AboutView />
