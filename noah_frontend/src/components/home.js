@@ -12,10 +12,10 @@ class HomeView extends React.Component {
                     <p>Those small appliances and utensils that are lying around at our homes, unused or rarely used, could make a huge difference to the people who have lost everything. An unused iron box, a dinner set you got as a gift, an emergency lamp you rarely use and much more. Donate them to the people who have lost everything in the flood and be part of rebuilding Kerala. </p>
                     <br/>
                     <a className="btn btn-primary btn-lg" href="#donate" role="button">Donate</a>
-                    &nbsp;&nbsp;
+                    {/* &nbsp;&nbsp;
                     <a className="btn btn-primary btn-lg" href="#request" role="button">Request</a>
                     &nbsp;&nbsp;
-                    <a className="btn btn-primary btn-lg" href="#partners" role="button">Partners</a>
+                    <a className="btn btn-primary btn-lg" href="#partners" role="button">Partners</a> */}
                 </div>
                 <DonateView />
             </div>
