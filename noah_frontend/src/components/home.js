@@ -1,7 +1,6 @@
 import React from 'react'
 
 import DonateView from './donate'
-import NavigationView from './nav'
 import HeaderView from './header'
 import HelpView from './help'
 import AboutView from './about'
