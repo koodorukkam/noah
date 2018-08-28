@@ -62,61 +62,78 @@ class DonateView extends React.Component {
 
     render() {
         return (
-            <div id="donate" className="jumbotron">
-                <h1 className="display-4">Donate</h1>
-                <p className="lead">Every small donation can make a BIG difference</p>
-                <form onSubmit={this.registerDonation}>
-                    <div className="form-group">
+<section id="donate" className="mx-auto" style={{maxWidth: "800px"}}>
+    <div className="container">
+        <div className="row">
+            <div className="col-lg-8 mx-auto text-center">
+                <h2 className="section-heading">Register your Donation Now!</h2>
+                <hr className="my-4" />
+            </div>
+        </div>
+        <div className="row">
+            <form className="container" onSubmit={this.registerDonation}>
+                <div className="row">
+                    <div className="col-6 form-group">
                         <label>Your Full Name</label>
                         <input name="full_name" className="form-control" type="text" required />
                     </div>
-                    <div className="form-group">
+                    <div className="col-6 form-group">
                         <label>Contact Number</label>
                         <input name="contact_number" className="form-control" type="number" minLength="10" maxLength="10" required />
                     </div>
-                    <div className="form-group">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderItems()}
-                            </tbody>
-                        </table>
-                        <br/>
-                        <a href="#" onClick={this.addItem} className="btn btn-sm btn-success"><i className="fa fa-plus"></i> Donate an Item not in this List</a>
-                    </div>
-                    <div className="form-group">
+                </div>
+                <div className="row">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderItems()}
+                        </tbody>
+                    </table>
+                    <a href="#" onClick={this.addItem} className="btn btn-sm btn-success"><i className="fa fa-plus"></i> Donate an Item not in this List</a>
+                </div>
+                <br/>
+                <div className="row">
+                    <div className="col-4 form-group">
                         <label>State</label>
                         <select name="state" className="form-control" onChange={this.selectState} value={this.state.selectedState} required >
                             {this.renderStates()}
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="col-4 form-group">
                         <label>District</label>
                         <select name="district" className="form-control" required >
                             {this.renderDistricts()}
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="col-4 form-group">
                         <label>PIN Code</label>
                         <input name="pincode" className="form-control" type="number" minLength="6" maxLength="6" required />
                     </div>
-                    <button type="submit" className="btn btn-primary btn-lg">Donate</button>
-                </form>
-                <ul>
-                    <li>Our team of volunteers will get in touch with you over the next 2 weeks and arrange for pickup.</li>
-                    <li>We are continuously identifying the people in need of the items and will be delivering to them directly.</li>
-                    <li>We will keep the movement of goods as transparent as possible.</li>
-                    <li>You may choose to donate used or unused items. But please donate only items in VERY GOOD condition.</li>
-                    <li>If you wish to donate an item that is not in the list, please mention in the ‘Others’ box.</li>
-                    <li>When you submit the form, your contact details may be shared with a volunteer group or / and the receiver of your donations.</li>
-                </ul>
-                <br />
-            </div>
+                </div>
+                <br/><br/>
+                <div className="row text-center">
+                    <button style={{padding: "18px 20px"}} type="submit" className="btn btn-primary btn-lg btn-block">Donate</button>
+                </div>
+            </form>
+        </div>
+        <br/><br/>
+        <table className="text-center table">
+            <tbody>
+                <tr><td>Our team of volunteers will get in touch with you over the next 2 weeks and arrange for pickup.</td></tr>
+                <tr><td>We are continuously identifying the people in need of the items and will be delivering to them directly.</td></tr>
+                <tr><td>We will keep the movement of goods as transparent as possible.</td></tr>
+                <tr><td>You may choose to donate used or unused items. But please donate only items in VERY GOOD condition.</td></tr>
+                <tr><td>If you wish to donate an item that is not in the list, please mention in the ‘Others’ box.</td></tr>
+                <tr><td>When you submit the form, your contact details may be shared with a volunteer group or / and the receiver of your donations.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
         )
     }
 }
