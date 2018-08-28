@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-import config from '../config'
-import {setFormValues} from '../actions/form'
+import {setConstantChoices} from '../actions/choices'
 
 export class APIService {
     constructor(dispatch) {
@@ -46,7 +45,7 @@ export class APIService {
     getFormValues() {
         return this.server.post("init/")
             .then(resp => {
-                this.dispatch(setFormValues(resp.data))
+                this.dispatch(setConstantChoices(resp.data))
             })
             .catch(err => {})
     }

@@ -2,16 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 import {APIService} from '../services/api'
-import {addCustomItem} from '../actions/form'
+import {addCustomItem, setSelectedState} from '../actions/choices'
 
 
 class DonateView extends React.Component {
     constructor(props) {
         super(props)
         this.api = new APIService(props.dispatch)
-        this.state = {
-            selectedState: "Kerala"
-        }
+    }
+
+    get items() {
+        return this.props.choices.constants.items.concat(this.props.choices.customItems)
     }
 
     componentDidMount() {
@@ -19,17 +20,18 @@ class DonateView extends React.Component {
     }
 
     renderStates() {
-        return this.props.form.states.map(state => <option key={state} value={state}>{state}</option>)
+        return this.props.choices.constants.states.map(state => <option key={state} value={state}>{state}</option>)
     }
 
     renderDistricts() {
-        if (!this.props.form.districts[this.state.selectedState])
+        const state = this.props.choices.selectedState
+        if (!this.props.choices.constants.districts[state])
             return null
-        return this.props.form.districts[this.state.selectedState].map(d => <option key={d} value={d}>{d}</option>)
+        return this.props.choices.constants.districts[state].map(d => <option key={d} value={d}>{d}</option>)
     }
 
     renderItems() {
-        return this.props.form.items.map(i => (
+        return this.items.map(i => (
             <tr key={i}>
                 <td><label>{i}</label></td>
                 <td><input className="form-control" type="number" defaultValue="0" name={i} /></td>
@@ -38,7 +40,7 @@ class DonateView extends React.Component {
     }
 
     selectState = (e) => {
-        this.setState({selectedState: e.target.value})
+        this.props.dispatch(setSelectedState(e.target.value))
     }
 
     addItem = (e) => {
@@ -51,7 +53,7 @@ class DonateView extends React.Component {
         e.preventDefault()
         const keys = ["full_name", "contact_number", "state", "district", "pincode"]
         let payload = {
-            items: this.props.form.items.map(i => {return {name: i, count: e.target[i].value}})
+            items: this.items.map(i => {return {name: i, count: e.target[i].value}})
         }
         for (const key of keys) {
             payload[key] = e.target[key].value
@@ -72,17 +74,7 @@ class DonateView extends React.Component {
         </div>
         <div className="row">
             <form className="container" onSubmit={this.registerDonation}>
-                <div className="row">
-                    <div className="col-6 form-group">
-                        <label>Your Full Name</label>
-                        <input name="full_name" className="form-control" type="text" required />
-                    </div>
-                    <div className="col-6 form-group">
-                        <label>Contact Number</label>
-                        <input name="contact_number" className="form-control" type="number" minLength="10" maxLength="10" required />
-                    </div>
-                </div>
-                <div className="row">
+                <div className="row"><div className="col-12">
                     <table className="table table-bordered">
                         <thead>
                             <tr>
@@ -95,12 +87,22 @@ class DonateView extends React.Component {
                         </tbody>
                     </table>
                     <a href="#" onClick={this.addItem} className="btn btn-sm btn-success"><i className="fa fa-plus"></i> Donate an Item not in this List</a>
-                </div>
+                </div></div>
                 <br/>
+                <div className="row">
+                    <div className="col-6 form-group">
+                        <label>Your Full Name</label>
+                        <input name="full_name" className="form-control" type="text" required />
+                    </div>
+                    <div className="col-6 form-group">
+                        <label>Contact Number</label>
+                        <input name="contact_number" className="form-control" type="number" minLength="10" maxLength="10" required />
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-4 form-group">
                         <label>State</label>
-                        <select name="state" className="form-control" onChange={this.selectState} value={this.state.selectedState} required >
+                        <select name="state" className="form-control" onChange={this.selectState} value={this.props.choices.selectedState} required >
                             {this.renderStates()}
                         </select>
                     </div>
@@ -140,7 +142,7 @@ class DonateView extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-    form: state.form
+    choices: state.choices
 });
 
 export default connect(mapStateToProps)(DonateView);

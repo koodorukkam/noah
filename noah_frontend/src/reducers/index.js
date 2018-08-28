@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import form from './form'
+import choices from './choices'
 
 export default combineReducers({
-    form
+    choices
 })
