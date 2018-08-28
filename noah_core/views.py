@@ -57,13 +57,20 @@ class DonationView(View):
                     raise Exception("Invalid item name")
                 elif not item['count'] or item['count'].isdigit() is False:
                     raise Exception("Invalid item count")
+                elif int(item['count']) <= 0:
+                    continue
                 
                 itemModel = self.getItem(item['name'])
                 donation.items.add(
                     itemModel.donationitemmodel_set.create(count=item["count"]))
             
-            resp['msg'] = "Your interest to donate has been recorded. Our volunteer will get in touch with you soon"
-            resp['status'] = 200
+            if donation.items.count() == 0:
+                donation.delete()
+                resp["msg"] = "Please select at least 1 item to donate"
+            
+            else:
+                resp['msg'] = "Your interest to donate has been recorded. Our volunteer will get in touch with you soon"
+                resp['status'] = 200
         
         except Exception as e:
             resp["msg"] = str(e)
