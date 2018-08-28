@@ -87,7 +87,7 @@ class DonateView extends React.Component {
                             </tbody>
                         </table>
                         <br/>
-                        <a href="#" onClick={this.addItem} className="btn btn-sm btn-success">Add an Item not in this List</a>
+                        <a href="#" onClick={this.addItem} className="btn btn-sm btn-success"><i className="fa fa-plus"></i> Donate an Item not in this List</a>
                     </div>
                     <div className="form-group">
                         <label>State</label>
