@@ -8,7 +8,10 @@ How to Run the Project
 ======================
 #. Make sure you have ``pipenv`` installed
 #. Create a MySQL database for this app
-#. Make sure you set all environment variables mentioned in ``env.dev.sh``
+#. Make sure you set all environment variables mentioned in ``env.dev.sh`` ::
+
+    $ source env.dev.sh # Only after you edit the variables to match your environment
+
 #. Install all dependencies ::
 
     $ pipenv install
