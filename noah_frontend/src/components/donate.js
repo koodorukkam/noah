@@ -34,7 +34,7 @@ class DonateView extends React.Component {
         return this.items.map(i => (
             <tr key={i}>
                 <td><label>{i}</label></td>
-                <td><input className="form-control" type="number" defaultValue="0" name={i} /></td>
+                <td><input className="form-control" type="number" defaultValue="0" name={i} min="0"/></td>
             </tr>
         ))
     }
