@@ -1,0 +1,11 @@
+header .contents{
+  opacity: 1;
+  position: relative;
+}
+
+header .contents .content{
+  position: absolute;
+  height: 135px;
+  left: 0;
+  top: 0;
+}
