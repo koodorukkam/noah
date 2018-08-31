@@ -25,3 +25,4 @@ How to Run the Project
 
     $ cd noah_frontend && yarn dev
 
+To avoid double-templating (first by Django templates and then by React DOM), the frontend of noah is completely served as completely static files. A development server is setup using Django's static file server and can be accessed at http://localhost:8000/index.html
