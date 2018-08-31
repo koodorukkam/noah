@@ -46,6 +46,10 @@ class DonateView extends React.Component {
     addItem = (e) => {
         e.preventDefault()
         const name = prompt("Enter name of the Item")
+        if (this.items.includes(name)) {
+          alert(`${name} already present in the list`)
+          return
+        }
         if (name && name.length > 0)
             this.props.dispatch(addCustomItem(name))
     }
