@@ -24,4 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/v1/', include('noah_core.urls')),
-] + static("/", document_root=os.path.join(settings.BASE_DIR, "noah_frontend", "dist"))
+]
+
+if settings.DEBUG is True:
+    urlpatterns += static("/", document_root=os.path.join(settings.BASE_DIR, "noah_frontend", "dist"))
