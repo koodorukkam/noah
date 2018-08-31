@@ -12,4 +12,3 @@ noah_frontend/dist/js/bundle.js
 node_modules/
 static/
 .venv/
-noah_frontend/dist/
