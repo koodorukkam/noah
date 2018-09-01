@@ -1,13 +1,22 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import {APIService} from '../services/api'
 import {addCustomItem, setSelectedState} from '../actions/choices'
+
+const FormError = styled.span`
+  color: red;
+  font-size: .85em;
+`
 
 
 class DonateView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+          formErr: {}
+        }
         this.api = new APIService(props.dispatch)
     }
 
@@ -54,9 +63,45 @@ class DonateView extends React.Component {
             this.props.dispatch(addCustomItem(name))
     }
 
-    registerDonation = (e) => {
-        e.preventDefault()
+    /**
+     * Validating form basically for phoen number and pincode
+     * @param  {HTMLnode} donationForm the donation form node
+     * @return {object}              List of errors
+     */
+    validateDonationForm = (donationForm) => {
+        let { formErr } = this.state
+        let errors = {}
+        const phoneRegex = /^\d{10}$/,
+              pinCodeRegex = /^\d{6}$/,
+              landPhoneRegex = /^0\d{10}$/
+        if (!(phoneRegex.test(donationForm['contact_number'].value) || landPhoneRegex.test(donationForm['contact_number'].value))) {
+          errors.contact_number = 'Enter 10 digit mobile number or 11 digit landline number'
+        } else if(formErr.contact_number){
+          // remove existing error message
+          formErr = {
+            ...formErr,
+            contact_number: ''
+          }
+        }
+        if (!pinCodeRegex.test(donationForm['pincode'].value)) {
+          errors.pincode = 'Enter valid 6 digit pin code'
+        } else if(formErr.pincode){
+          // remove existing error message
+          formErr = {
+            ...formErr,
+            pincode: ''
+          }
+        }
+        this.setState({formErr: {...formErr, ...errors}})
 
+        return errors
+    }
+
+    registerDonation =  (e) => {
+        e.preventDefault()
+        const validationErrs = this.validateDonationForm(e.target)
+        if (Object.keys(validationErrs).length > 0)
+          return
         if (!e.target.agreeToTerms.checked) {
             alert("Please agree to donate only 'very good working condition' items by checking the box")
             return
@@ -73,6 +118,7 @@ class DonateView extends React.Component {
     }
 
     render() {
+        const { formErr } = this.state
         return (
 <section id="donate" className="mx-auto" style={{maxWidth: "800px"}}>
     <div className="container">
@@ -107,6 +153,9 @@ class DonateView extends React.Component {
                     <div className="col-6 form-group">
                         <label>Contact Number</label>
                         <input name="contact_number" className="form-control" type="number" minLength="10" maxLength="10" required />
+                        {formErr['contact_number'] &&
+                            <FormError>{formErr['contact_number']}</FormError>
+                        }
                     </div>
                 </div>
                 <div className="row">
@@ -125,6 +174,9 @@ class DonateView extends React.Component {
                     <div className="col-4 form-group">
                         <label>PIN Code</label>
                         <input name="pincode" className="form-control" type="number" minLength="6" maxLength="6" required />
+                        {formErr['pincode'] &&
+                            <FormError>{formErr['pincode']}</FormError>
+                        }
                     </div>
                 </div>
                 <br/>
@@ -157,6 +209,6 @@ class DonateView extends React.Component {
 
 const mapStateToProps = (state) => ({
     choices: state.choices
-});
+})
 
-export default connect(mapStateToProps)(DonateView);
+export default connect(mapStateToProps)(DonateView)
