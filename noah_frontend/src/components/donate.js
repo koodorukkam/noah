@@ -65,6 +65,11 @@ class DonateView extends React.Component {
     addItem = (e) => {
         e.preventDefault()
         const name = prompt("Enter name of the Item")
+        const nameRegex = /^[a-zA-Z][a-zA-Z0-9.,$;]+$/
+        if (!nameRegex.test(name)){
+          alert('Enter a valid item name. Eg: Drawing table')
+          return
+        }
         if (this.items.includes(name)) {
           alert(`${name} already present in the list`)
           return
