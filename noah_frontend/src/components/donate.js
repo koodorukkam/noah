@@ -69,11 +69,12 @@ class DonateView extends React.Component {
      * @return {object}              List of errors
      */
     validateDonationForm = (donationForm) => {
-        let { formErr } = this.state
+        let { formErr } = this.state;
         let errors = {}
         const phoneRegex = /^\d{10}$/,
               pinCodeRegex = /^\d{6}$/,
-              landPhoneRegex = /^0\d{10}$/
+              landPhoneRegex = /^0\d{10}$/,
+              nameRegex = /^[a-zA-Z][a-zA-Z0-9.,$;]+$/
         if (!(phoneRegex.test(donationForm['contact_number'].value) || landPhoneRegex.test(donationForm['contact_number'].value))) {
           errors.contact_number = 'Enter 10 digit mobile number or 11 digit landline number'
         } else if(formErr.contact_number){
@@ -92,9 +93,19 @@ class DonateView extends React.Component {
             pincode: ''
           }
         }
+
+        if (!nameRegex.test(donationForm['full_name'].value)) {
+          errors.full_name = 'Enter a valid name'
+        } else if(formErr.full_name){
+          // remove existing error message
+          formErr = {
+            ...formErr,
+            full_name: ''
+          }
+        }
         this.setState({formErr: {...formErr, ...errors}})
 
-        return errors
+        return errors;
     }
 
     registerDonation =  (e) => {
@@ -118,7 +129,7 @@ class DonateView extends React.Component {
     }
 
     render() {
-        const { formErr } = this.state
+        const { formErr } = this.state;
         return (
 <section id="donate" className="mx-auto" style={{maxWidth: "800px"}}>
     <div className="container">
@@ -149,6 +160,9 @@ class DonateView extends React.Component {
                     <div className="col-6 form-group">
                         <label>Your Full Name</label>
                         <input name="full_name" className="form-control" type="text" required />
+                        {formErr['full_name'] &&
+                            <FormError>{formErr['full_name']}</FormError>
+                        }
                     </div>
                     <div className="col-6 form-group">
                         <label>Contact Number</label>
@@ -211,4 +225,4 @@ const mapStateToProps = (state) => ({
     choices: state.choices
 })
 
-export default connect(mapStateToProps)(DonateView)
+export default connect(mapStateToProps)(DonateView);
