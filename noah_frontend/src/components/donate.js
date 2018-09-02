@@ -39,11 +39,21 @@ class DonateView extends React.Component {
         return this.props.choices.constants.districts[state].map(d => <option key={d} value={d}>{d}</option>)
     }
 
+    /**
+     * Adding double validation for item quantity.
+     * If the user enters more than 20, resetting it to 20 on blur
+     */
+    validateItemQuantity = (e) => {
+      if (e.target.value > 20) {
+        e.target.value = 20
+      }
+    }
+
     renderItems() {
         return this.items.map(i => (
             <tr key={i}>
                 <td><label>{i}</label></td>
-                <td><input className="form-control" type="number" defaultValue="0" name={i} min="0"/></td>
+                <td><input className="form-control" type="number" defaultValue="0" name={i} max="20" onBlur={this.validateItemQuantity} min="0"/></td>
             </tr>
         ))
     }
