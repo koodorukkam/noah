@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import {APIService} from '../services/api'
 import {addCustomItem, setSelectedState} from '../actions/choices'
+import { withRouter } from 'react-router-dom';
 
 const FormError = styled.span`
   color: red;
@@ -140,7 +141,7 @@ class DonateView extends React.Component {
         for (const key of keys) {
             payload[key] = e.target[key].value
         }
-        this.api.registerDonation(payload, e.target)
+        this.api.registerDonation(payload, e.target, this.props.history.push)
     }
 
     render() {
@@ -240,4 +241,4 @@ const mapStateToProps = (state) => ({
     choices: state.choices
 })
 
-export default connect(mapStateToProps)(DonateView);
+export default withRouter(connect(mapStateToProps)(DonateView));

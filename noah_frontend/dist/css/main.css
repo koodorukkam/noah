@@ -9,3 +9,68 @@ header .contents .content{
   left: 0;
   top: 0;
 }
+
+header.sub-page{
+  padding-top: 150px;
+  height: 300px;
+  min-height: auto;
+  background-position: center;
+}
+
+#help .help-btn{
+  font-size: 0.8rem;
+}
+
+.heading.underline
+{
+  position: relative;
+}
+
+.heading.underline::after{
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 130%;
+  width: 50px;
+  height: 3px;
+  background: #F05F40;
+}
+
+.background-pickup{
+  background: url('../img/donation-icons/pickup.png');
+  background-size: cover;
+}
+
+.background-clean{
+  background: url('../img/donation-icons/clean.png');
+  background-size: cover;
+}
+
+.background-pack{
+  background: url('../img/donation-icons/pack.png');
+  background-size: cover;
+}
+.background-inspect{
+  background: url('../img/donation-icons/inspect.png');
+  background-size: cover;
+}
+.background-call{
+  background: url('../img/donation-icons/call.png');
+  background-size: cover;
+}
+
+#donation-steps{
+  padding-bottom: 100px;
+}
+
+#donation-steps .step-contents{
+  padding-top: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-height: 400px;
+}
+
+#donation-steps .step-contents p{
+  margin-top: 40px;
+  opacity: 0.9;
+}
