@@ -9,13 +9,13 @@ import PartnerView from './partners'
 class HomeView extends React.Component {
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <HeaderView />
                 <PartnerView />
                 <DonateView />
                 <AboutView />
                 <HelpView />
-            </div>
+            </React.Fragment>
         )
     }
 }

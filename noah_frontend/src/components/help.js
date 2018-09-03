@@ -15,7 +15,7 @@ export default () => (
             <tr><td>Want to do mass donations (of appliances and utensils), you are welcome!</td></tr>
         </tbody>
     </table>
-    <a target="_blank" className="btn btn-light btn-xl sr-button" href="https://docs.google.com/forms/d/e/1FAIpQLSdVTRF-Ujl0LMAalMBWVw0GSTm3E8w8QAgj5tui4SIKJuMhOg/viewform">Apply here to Volunteer with us</a>
+    <a target="_blank" className="btn btn-light btn-xl sr-button help-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdVTRF-Ujl0LMAalMBWVw0GSTm3E8w8QAgj5tui4SIKJuMhOg/viewform">Apply here to Volunteer with us</a>
     </div>
 </section>
 )

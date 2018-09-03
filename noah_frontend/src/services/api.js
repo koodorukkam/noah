@@ -50,11 +50,12 @@ export class APIService {
             .catch(err => {})
     }
 
-    registerDonation(payload, form) {
+    registerDonation(payload, form, push) {
         return this.server.post("donation.register/", payload)
             .then(resp => {
                 alert(resp.data.msg)
                 form.reset()
+                push('/how-to-donate')
             })
             .catch(err => {})
     }
