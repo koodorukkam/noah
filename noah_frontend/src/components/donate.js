@@ -66,11 +66,6 @@ class DonateView extends React.Component {
     addItem = (e) => {
         e.preventDefault()
         const name = prompt("Enter name of the Item")
-        const nameRegex = /^[a-zA-Z][a-zA-Z0-9.,$;]+$/
-        if (!nameRegex.test(name)){
-          alert('Enter a valid item name. Eg: Drawing table')
-          return
-        }
         if (this.items.includes(name)) {
           alert(`${name} already present in the list`)
           return
@@ -89,8 +84,7 @@ class DonateView extends React.Component {
         let errors = {}
         const phoneRegex = /^\d{10}$/,
               pinCodeRegex = /^\d{6}$/,
-              landPhoneRegex = /^0\d{10}$/,
-              nameRegex = /^[a-zA-Z][a-zA-Z0-9.,$;]+$/
+              landPhoneRegex = /^0\d{10}$/
         if (!(phoneRegex.test(donationForm['contact_number'].value) || landPhoneRegex.test(donationForm['contact_number'].value))) {
           errors.contact_number = 'Enter 10 digit mobile number or 11 digit landline number'
         } else if(formErr.contact_number){
@@ -110,15 +104,6 @@ class DonateView extends React.Component {
           }
         }
 
-        if (!nameRegex.test(donationForm['full_name'].value)) {
-          errors.full_name = 'Enter a valid name'
-        } else if(formErr.full_name){
-          // remove existing error message
-          formErr = {
-            ...formErr,
-            full_name: ''
-          }
-        }
         this.setState({formErr: {...formErr, ...errors}})
 
         return errors;
