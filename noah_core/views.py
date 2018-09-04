@@ -1,8 +1,11 @@
 import json
+from xlsxwriter.workbook import Workbook
+from dateutil.parser import parse as date_parser
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.shortcuts import render
+from django.urls import reverse
 
 from .utils.districts import DISTRICTS
 from .models import ItemModel, DonationCommitmentModel
@@ -76,3 +79,74 @@ class DonationView(View):
             resp["msg"] = str(e)
         
         return HttpResponse(json.dumps(resp), status=resp['status'])
+
+
+class ExportView(View):
+    titles = [
+        "full_name", "contact_number",
+        "state", "district", "pincode",
+        "item", "count", "timestamp"
+    ]
+
+    def parseDate(self, dateString):
+        try:
+            return date_parser(dateString).date()
+        
+        except Exception as e:
+            print(str(e))
+            return None
+
+    def getData(self, start_date, end_date):
+        model = DonationCommitmentModel.objects
+
+        if start_date:
+            model = model.filter(created_at__gte=start_date)
+        
+        if end_date:
+            model = model.filter(created_at__lte=end_date)
+
+        for donation in model.all():
+            for item in donation.items.all():
+                yield [
+                    donation.full_name,
+                    donation.contact_number,
+                    donation.state,
+                    donation.district,
+                    donation.pincode,
+                    item.item.name,
+                    item.count,
+                    donation.created_at.isoformat()
+                ]
+
+    def writeListAsRow(self, sheet, index, row):
+        for i, datum in enumerate(row):
+            sheet.write(index, i, datum)
+
+    def createXLSX(self, response, rows):
+        book = Workbook(response, {'in_memory': True})
+        sheet = book.add_worksheet('Sheet')
+
+        self.writeListAsRow(sheet, 0, self.titles)
+
+        [
+            self.writeListAsRow(sheet, i+1, row)
+            for i, row in enumerate(rows)
+        ]
+
+        book.close()
+
+    def get(self, request):       
+        if request.user.is_authenticated is False or request.user.is_superuser is False:
+            return HttpResponseRedirect("/admin/login/?next=%s" % reverse("donations-export"))
+
+        start_date = self.parseDate(request.GET.get('start_date'))
+        end_date = self.parseDate(request.GET.get('end_date'))
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = "attachment; filename=export.xlsx"
+
+        rows = self.getData(
+            start_date=start_date, end_date=end_date)
+        self.createXLSX(response, rows)
+
+        return response
