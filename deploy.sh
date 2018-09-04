@@ -8,9 +8,6 @@ exit_if_error() {
     fi
 }
 
-# Setup the environment variables
-source env.prod.sh
-
 # Python environment dependencies
 pipenv install
 pipenv shell
