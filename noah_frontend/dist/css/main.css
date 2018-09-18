@@ -74,3 +74,14 @@ header.sub-page{
   margin-top: 40px;
   opacity: 0.9;
 }
+
+@media (max-width: 992px){
+  #mainNav .navbar-nav>li.nav-item>a.nav-link{
+    text-align: center;
+  }
+}
+.open-link{
+  color: rgb(255, 255, 255) !important;
+  background: rgb(255, 82, 48);
+  border-radius: 20px;
+}
