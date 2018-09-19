@@ -13,11 +13,21 @@ class UserProfileModel(models.Model):
     # such as who the granter of permission was for this
     # user, when was it granted etc.
     is_super = models.BooleanField(default=False)
-    is_access_controler = models.BooleanField(default=False)
+    is_access_controller = models.BooleanField(default=False)
     # More roles will be added in future migrations
 
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    def serialize(self):
+        return {
+            "number": self.number,
+            "is_number_verified": self.is_number_verified,
+            "is_super": self.is_super,
+            "is_access_controller": self.is_access_controller,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
+        }
 
 
 class TokenModel(models.Model):
@@ -31,3 +41,13 @@ class TokenModel(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
+
+    def serialize(self):
+        return {
+            "token": self.token,
+            "kind": self.kind,
+            "profile_id": self.profile.id,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
+            "expires_at": self.expires_at.isoformat()
+        }
