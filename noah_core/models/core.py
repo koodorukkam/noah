@@ -11,7 +11,6 @@ from ..constants.choices import enumToChoices, \
 
 class StatusModel(models.Model):
     status = models.IntegerField()
-    group = models.IntegerField()
     current = models.BooleanField(default=False)
 
     updated_by = models.ForeignKey(UserProfileModel,
@@ -108,6 +107,8 @@ class VolunteerRequestModel(models.Model):
     district = models.CharField(max_length=250)
     state = models.CharField(max_length=250)
     pincode = models.CharField(max_length=6)
+
+    statuses = models.ManyToManyField(StatusModel)
 
     contribution_type = models.IntegerField(
         choices=enumToChoices(VolunteerContributionType))

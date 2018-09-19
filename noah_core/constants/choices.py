@@ -32,3 +32,15 @@ class VolunteerVehicleType(Enum):
     CAR = 1
     BIKE = 2
     NO = 3
+
+
+class VolunteerRequestStatus(Enum):
+    RECEIVED = 1
+
+
+class DonationStatus(Enum):
+    RECEIVED = 1
+
+
+class ReceiverRequestStatus(Enum):
+    RECEIVED = 1
