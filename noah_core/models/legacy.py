@@ -1,7 +1,5 @@
 from django.db import models
 
-from ..utils.districts import DISTRICTS
-
 
 class ItemModel(models.Model):
     name = models.CharField(max_length=255, unique=True)

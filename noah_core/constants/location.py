@@ -1,4 +1,4 @@
-DISTRICTS = {
+MAPPING_STATE_DISTRICTS = {
     "Andhra Pradesh": [
         "Anantapur",
         "Chittoor",
@@ -792,3 +792,6 @@ DISTRICTS = {
         "Uttar Dinajpur (North Dinajpur)"
     ]
 }
+
+STATES = MAPPING_STATE_DISTRICTS.keys()
+GET_DISTRICTS = lambda x: MAPPING_STATE_DISTRICTS.get(x) or []
