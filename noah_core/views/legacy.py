@@ -7,15 +7,15 @@ from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
 
-from ..utils.districts import DISTRICTS
+from ..constants import location
 from ..models import ItemModel, DonationCommitmentModel
 
 
 class InitView(View):
     def post(self, request):
         return HttpResponse(json.dumps({
-            "states": list(DISTRICTS.keys()),
-            "districts": DISTRICTS,
+            "states": list(location.STATES),
+            "districts": location.MAPPING_STATE_DISTRICTS,
             "items": list(ItemModel.objects.filter(crowd_sourced=False).values_list('name', flat=True))
         }))
 
@@ -29,9 +29,9 @@ class DonationView(View):
             len(ip['contact_number']) != 10 or \
             ip['contact_number'].isdigit() is False:
             raise Exception("Contact number has to be a 10-digit mobile number")
-        elif not ip.get('state') or ip['state'] not in DISTRICTS:
+        elif not ip.get('state') or ip['state'] not in location.MAPPING_STATE_DISTRICTS:
             raise Exception("Invalid state")
-        elif not ip.get('district') or ip['district'] not in DISTRICTS[ip['state']]:
+        elif not ip.get('district') or ip['district'] not in location.MAPPING_STATE_DISTRICTS[ip['state']]:
             raise Exception("Invalid district")
         elif not ip.get('pincode') or ip['pincode'].isdigit() is False or len(ip['pincode']) != 6:
             raise Exception("Invalid PIN code")
