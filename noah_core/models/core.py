@@ -11,7 +11,7 @@ from ..constants.choices import enumToChoices, \
 
 class StatusModel(models.Model):
     status = models.IntegerField()
-    kind = models.IntegerField()
+    group = models.IntegerField()
     current = models.BooleanField(default=False)
 
     updated_by = models.ForeignKey(UserProfileModel,
