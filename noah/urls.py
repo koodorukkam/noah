@@ -22,8 +22,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('api/v1/', include('noah_core.urls')),
+    path('api/v1/', include('noah_core.urls.v1')),
 ]
 
 if settings.DEBUG is True:

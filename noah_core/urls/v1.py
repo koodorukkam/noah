@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import legacy
+from ..views import legacy
 
 # All legacy URL patterns
 urlpatterns = [
