@@ -7,8 +7,8 @@ from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
 
-from .utils.districts import DISTRICTS
-from .models import ItemModel, DonationCommitmentModel
+from ..utils.districts import DISTRICTS
+from ..models import ItemModel, DonationCommitmentModel
 
 
 class InitView(View):

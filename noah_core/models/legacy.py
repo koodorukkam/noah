@@ -1,6 +1,6 @@
 from django.db import models
 
-from .utils.districts import DISTRICTS
+from ..utils.districts import DISTRICTS
 
 
 class ItemModel(models.Model):

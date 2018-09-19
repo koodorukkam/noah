@@ -198,7 +198,7 @@ class DonateView extends React.Component {
                 <div className="form-group">
                     <input name="agreeToTerms" className="form-group" type="checkbox" />&nbsp;&nbsp;&nbsp;I agree that all items I donate will be in VERY GOOD WORKING condition
                     <br/>
-                  <input className="form-group" type="checkbox" checked />&nbsp;&nbsp;&nbsp;I agree to share my contact details with the receiver of my donated item
+                  <input className="form-group" type="checkbox" defaultChecked={true} />&nbsp;&nbsp;&nbsp;I agree to share my contact details with the receiver of my donated item
                 </div>
                 <div className="row text-center">
                     <button style={{padding: "18px 20px"}} type="submit" className="btn btn-primary btn-lg btn-block">Donate</button>
