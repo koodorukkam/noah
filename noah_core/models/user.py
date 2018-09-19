@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from ..constants.choices import enumToChoices, UserTokenType
+
 
 class UserProfileModel(models.Model):
     number = models.CharField(max_length=10)
@@ -20,7 +22,8 @@ class UserProfileModel(models.Model):
 
 class TokenModel(models.Model):
     token = models.CharField(max_length=250)
-    kind = models.CharField(max_length=200)
+    kind = models.IntegerField(
+        choices=enumToChoices(UserTokenType))
 
     profile = models.ForeignKey(UserProfileModel,
         on_delete=models.CASCADE)
