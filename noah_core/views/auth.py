@@ -93,6 +93,8 @@ class Login(View):
                 otp=resp["request"]["otp"])
             
             resp["access_token"] = self.create_access_token(token.profile).serialize()
+            token.delete()
+
             resp["msg"] = "Ok"
             resp["status"] = 200
         

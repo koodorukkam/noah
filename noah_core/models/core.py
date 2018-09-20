@@ -56,6 +56,8 @@ class HubModel(models.Model):
     state = models.CharField(max_length=250)
     pincode = models.CharField(max_length=6)
 
+    map_url = models.TextField(null=True)
+
     # Using a manytomany field here will remove our
     # ability to track meta info such as who granted a user
     # the admin role, when was it granted etc
