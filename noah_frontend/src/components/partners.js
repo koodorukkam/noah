@@ -18,11 +18,14 @@ export default () => (
             <h2 className="mb-4">In Association With</h2>
             <hr /><br /><br />
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <a target="_blank" href="http://gtechindia.org/"><img className="img-fluid" src="img/partners/gtech.svg" /></a>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <a target="_blank" href="https://www.nasscom.in/"><img className="img-fluid" src="img/partners/nasscom.svg" /></a>
+                </div>
+                <div className="col-md-4">
+                    <a target="_blank" href="http://www.rotarycochin.org/"><img className="img-fluid" src="img/partners/rotary.png" /></a>
                 </div>
             </div>
             <div className="clearfix"></div>
@@ -31,11 +34,8 @@ export default () => (
             <h2 className="mb-4">Volunteer Partners</h2>
             <hr /><br /><br />
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 offset-md-3">
                     <a target="_blank" href="http://www.prathidhwani.org/"><img className="img-fluid" src="img/partners/PrathiDhwani.png" /></a>
-                </div>
-                <div className="col-md-6">
-                    <a target="_blank" href="http://www.rotarycochin.org/"><img className="img-fluid" src="img/partners/rotary.png" /></a>
                 </div>
             </div>
             <div className="clearfix"></div>
