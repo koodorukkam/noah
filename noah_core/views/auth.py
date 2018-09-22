@@ -11,17 +11,18 @@ from random import randint
 
 from ..models.user import UserProfileModel, TokenModel
 from ..constants.choices import UserTokenType
-from ..services import validators, auth
+from ..services import validators
+from ..services.auth import AuthenticationService
 
 
-authService = auth.AuthenticationService()
+authService = AuthenticationService()
 
 
 class RequestOTP(View):
     def post(self, request):
         resp = {
             "msg": "Something went wrong",
-            "status": 500,
+            "code": 500,
             "request": {
                 "number": request.POST.get('number') or ""
             }
@@ -37,19 +38,19 @@ class RequestOTP(View):
             resp["token"] = token.serialize()
 
             resp["msg"] = "Ok"
-            resp["status"] = 200
+            resp["code"] = 200
         
         except Exception as e:
             resp["msg"] = str(e)
 
-        return JsonResponse(resp, status=resp["status"])
+        return JsonResponse(resp, status=resp["code"])
 
 
 class Login(View):
     def post(self, request):
         resp = {
             "msg": "Something went wrong",
-            "status": 500,
+            "code": 500,
             "request": {
                 "number": request.POST.get('number') or "",
                 "otp": request.POST.get("otp") or ""
@@ -65,9 +66,9 @@ class Login(View):
             token.delete()
 
             resp["msg"] = "Ok"
-            resp["status"] = 200
+            resp["code"] = 200
         
         except Exception as e:
             resp["msg"] = str(e)
 
-        return JsonResponse(resp, status=resp["status"])
+        return JsonResponse(resp, status=resp["code"])

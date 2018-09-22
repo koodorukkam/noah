@@ -1,8 +1,10 @@
 from uuid import uuid4
 from datetime import timedelta
 from random import randint
+from functools import wraps
 
 from django.utils import timezone
+from django.http import JsonResponse
 
 from ..models.user import UserProfileModel, TokenModel
 from ..constants.choices import UserTokenType
@@ -28,26 +30,43 @@ class AuthenticationService(object):
         return UserProfileModel.objects.filter(number=number).first() or \
             UserProfileModel.objects.create(number=number)
 
-    def validate_token(self, token):
-        if not token:
-            raise Exception("Invalid token")
-        
-        if token.expires_at < timezone.now():
-            raise Exception("Your token has expired, please request again")
+    def validate_token(self, qs, tokenString):
+        token = qs.filter(token=tokenString).last()
 
+        if not token:
+            raise Exception("Invalid token - (%s)" % tokenString)
+
+        token.raise_exception_if_expired()
         return token
 
     def validate_verification_token(self, number, otp):
-        token = TokenModel.objects.filter(
-            token=otp,
+        qs = TokenModel.objects.filter(
             kind=UserTokenType.VERIFICATION.value,
-            profile__number=number).last()
-        
-        return self.validate_token(token)
+            profile__number=number)
+        return self.validate_token(qs, otp)
 
     def validate_access_token(self, tokenString):
-        token = TokenModel.objects.filter(
-            token=tokenString,
+        qs = TokenModel.objects.filter(
             kind=UserTokenType.ACCESS.value)
+        return self.validate_token(qs, tokenString)
 
-        return self.validate_token(token)
+    def is_authenticated_request(self, func):
+        @wraps(func)
+        def wrapper(view, request, *args, **kwargs):
+            try:
+                tokenString = request.META\
+                    .get('HTTP_AUTHORIZATION', '')\
+                    .replace("Bearer", "").strip()
+
+                token = self.validate_access_token(tokenString)
+                kwargs["profile"] = token.profile
+
+            except Exception as e:
+                return JsonResponse({
+                    "code": 403,
+                    "msg": str(e)
+                }, status=403)
+
+            return func(view, request, *args, **kwargs)
+
+        return wrapper
