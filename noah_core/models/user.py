@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from ..constants.choices import enumToChoices, UserTokenType
 
@@ -41,6 +42,10 @@ class TokenModel(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
+
+    def raise_exception_if_expired(self):
+        if self.expires_at < timezone.now():
+            raise Exception("Your token has expired at %s" % self.expires_at.isoformat())
 
     def serialize(self):
         return {
