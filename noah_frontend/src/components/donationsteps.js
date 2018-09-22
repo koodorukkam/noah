@@ -1,6 +1,6 @@
 import React from 'react'
 
-class HomeView extends React.Component {
+class DontationSteps extends React.Component {
   componentDidMount(){
     window.scrollTo(0, 0);
   }
@@ -73,4 +73,4 @@ class HomeView extends React.Component {
   }
 }
 
-export default HomeView;
+export default DontationSteps;
