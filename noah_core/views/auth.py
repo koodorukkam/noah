@@ -72,3 +72,12 @@ class Login(View):
             resp["msg"] = str(e)
 
         return JsonResponse(resp, status=resp["code"])
+
+
+class CurrentUser(View):
+    @authService.is_authenticated_request
+    def post(self, request, profile):
+        return JsonResponse({
+            "status": 200,
+            "profile": profile.serialize()
+        }, status=200)
