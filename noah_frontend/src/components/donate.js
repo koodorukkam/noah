@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import {APIService} from '../services/api'
 import {addCustomItem, setSelectedState} from '../actions/choices'
-import { withRouter } from 'react-router-dom';
+import { withRouter,Link } from 'react-router-dom';
 
 const FormError = styled.span`
   color: red;
@@ -196,7 +196,7 @@ class DonateView extends React.Component {
                 </div>
                 <br/>
                 <div className="form-group">
-                    <input name="agreeToTerms" className="form-group" type="checkbox" />&nbsp;&nbsp;&nbsp;I agree that all items I donate will be in VERY GOOD WORKING condition
+                    <input name="agreeToTerms" className="form-group" type="checkbox" />&nbsp;&nbsp;&nbsp;I agree that all items I donate will be in VERY GOOD WORKING condition and I agree to the <Link to="/terms-and-conditions">Terms and Conditions</Link>
                     <br/>
                   <input className="form-group" type="checkbox" defaultChecked={true} />&nbsp;&nbsp;&nbsp;I agree to share my contact details with the receiver of my donated item
                 </div>
